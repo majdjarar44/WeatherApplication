@@ -15,8 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class WeatherViewModel @Inject constructor(
     private val weatherRepository: WeatherFetcher,
-) :
-    ViewModel() {
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow(WeatherUiState())
     val uiState: StateFlow<WeatherUiState> = _uiState
@@ -36,11 +35,11 @@ class WeatherViewModel @Inject constructor(
             try {
 
                 val data = weatherRepository.fetchWeather()
-              if (data.error.isNullOrEmpty()) {
-                  _uiState.value = WeatherUiState(weatherData = data)
-              }else{
-                  _uiState.value = WeatherUiState(errorMessage = data.error)
-              }
+                if (data.error.isNullOrEmpty()) {
+                    _uiState.value = WeatherUiState(weatherData = data)
+                } else {
+                    _uiState.value = WeatherUiState(errorMessage = data.error)
+                }
 
             } catch (e: Exception) {
                 _uiState.value = WeatherUiState(errorMessage = "Failed to load weather data")
